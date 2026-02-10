@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     initTabs();
     initContactForm();
     initAnimations();
+    initHeroVideo();
+    initHeroParticles();
+    initHeroEntrance();
+    initRevealAnimations();
+    initTiltEffect();
+    initTypedText();
 });
 
 /* =============================================
@@ -312,7 +318,7 @@ function showNotification(message, type) {
    Scroll Animations
    ============================================= */
 function initAnimations() {
-    const animateElements = document.querySelectorAll('.feature-card, .product-card, .team-card, .news-card, .compliance-card, .capability-card, .award-card, .footprint-stat');
+    const animateElements = document.querySelectorAll('.feature-card, .product-card, .team-card, .news-card, .compliance-card, .capability-card, .award-card, .footprint-stat, .tech-detail-card');
     
     const observerOptions = {
         threshold: 0.1,
@@ -408,56 +414,172 @@ function isInViewport(element) {
 }
 
 /* =============================================
-   Video Modal (for future use)
+   Hero Video Modal
    ============================================= */
-function initVideoModal() {
-    const videoTriggers = document.querySelectorAll('[data-video]');
-    
-    videoTriggers.forEach(trigger => {
-        trigger.addEventListener('click', function(e) {
-            e.preventDefault();
-            const videoUrl = this.dataset.video;
-            openVideoModal(videoUrl);
+function initHeroVideo() {
+    const playBtn   = document.getElementById('heroPlayBtn');
+    const modal     = document.getElementById('videoModal');
+    const iframe    = document.getElementById('videoIframe');
+    const closeBtn  = document.getElementById('videoModalClose');
+    const backdrop  = modal ? modal.querySelector('.video-modal-backdrop') : null;
+
+    // A factory / garment manufacturing showcase video (YouTube embed)
+    const videoSrc = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
+    // Replace the URL above with your own company video URL
+
+    if (playBtn && modal && iframe) {
+        playBtn.addEventListener('click', function() {
+            iframe.src = videoSrc;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
-    });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            iframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
+        if (backdrop) backdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+    }
 }
 
-function openVideoModal(url) {
-    const modal = document.createElement('div');
-    modal.className = 'video-modal';
-    modal.innerHTML = `
-        <div class="video-modal-overlay"></div>
-        <div class="video-modal-content">
-            <button class="video-modal-close">&times;</button>
-            <iframe src="${url}" frameborder="0" allowfullscreen></iframe>
-        </div>
-    `;
-    
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
-    
-    document.body.appendChild(modal);
-    document.body.style.overflow = 'hidden';
-    
-    // Close handlers
-    const overlay = modal.querySelector('.video-modal-overlay');
-    const closeBtn = modal.querySelector('.video-modal-close');
-    
-    [overlay, closeBtn].forEach(el => {
-        el.addEventListener('click', () => {
-            modal.remove();
-            document.body.style.overflow = '';
+/* =============================================
+   Hero Particle Canvas
+   ============================================= */
+function initHeroParticles() {
+    const canvas = document.getElementById('heroParticles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let animId;
+    let w, h;
+
+    function resize() {
+        const hero = canvas.parentElement;
+        w = canvas.width  = hero.offsetWidth;
+        h = canvas.height = hero.offsetHeight;
+    }
+
+    function createParticles() {
+        particles = [];
+        const count = Math.min(Math.floor(w * h / 12000), 80);
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 2 + 0.5,
+                dx: (Math.random() - 0.5) * 0.4,
+                dy: (Math.random() - 0.5) * 0.4,
+                o: Math.random() * 0.4 + 0.1
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+
+        // Draw particles
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${p.o})`;
+            ctx.fill();
         });
-    });
+
+        // Draw connections
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(255,255,255,${0.06 * (1 - dist / 120)})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // Update positions
+        particles.forEach(p => {
+            p.x += p.dx;
+            p.y += p.dy;
+            if (p.x < 0 || p.x > w) p.dx *= -1;
+            if (p.y < 0 || p.y > h) p.dy *= -1;
+        });
+
+        animId = requestAnimationFrame(draw);
+    }
+
+    resize();
+    createParticles();
+    draw();
+
+    window.addEventListener('resize', debounce(function() {
+        resize();
+        createParticles();
+    }, 200));
+
+    // Pause when out of viewport for performance
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!animId) draw();
+            } else {
+                cancelAnimationFrame(animId);
+                animId = null;
+            }
+        });
+    }, { threshold: 0.1 });
+    observer.observe(canvas.parentElement);
+}
+
+/* =============================================
+   Hero Entrance Animation Trigger
+   ============================================= */
+function initHeroEntrance() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    // Trigger animations once the hero is visible (or immediately)
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                hero.classList.add('in-view');
+                observer.unobserve(hero);
+            }
+        });
+    }, { threshold: 0.15 });
+    observer.observe(hero);
+
+    // Parallax-like subtle shift on mouse move (desktop only)
+    if (window.innerWidth > 768) {
+        hero.addEventListener('mousemove', function(e) {
+            const rect = hero.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 2;
+            const y = ((e.clientY - rect.top)  / rect.height - 0.5) * 2;
+
+            const icons = hero.querySelectorAll('.float-icon');
+            icons.forEach((icon, i) => {
+                const speed = 8 + i * 4;
+                icon.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+
+            const video = hero.querySelector('.hero-video');
+            if (video) {
+                video.style.transform = `scale(1.05) translate(${x * -4}px, ${y * -4}px)`;
+            }
+        });
+    }
 }
 
 /* =============================================
@@ -482,3 +604,125 @@ function initLazyLoading() {
 
 // Initialize lazy loading
 document.addEventListener('DOMContentLoaded', initLazyLoading);
+
+/* =============================================
+   Scroll Reveal Animations
+   ============================================= */
+function initRevealAnimations() {
+    const revealElements = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up, .reveal-scale');
+
+    if (!revealElements.length) return;
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+}
+
+/* =============================================
+   Card Tilt Effect (Desktop)
+   ============================================= */
+function initTiltEffect() {
+    if (window.innerWidth <= 768) return;
+
+    const tiltCards = document.querySelectorAll('[data-tilt]');
+
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', function(e) {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+            const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+            card.style.transform = `perspective(800px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) translateY(-10px)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+            card.style.transform = '';
+        });
+    });
+}
+
+/* =============================================
+   Typed Text Effect for Hero
+   ============================================= */
+function initTypedText() {
+    const heroH1 = document.querySelector('.hero h1');
+    if (!heroH1) return;
+
+    // Animate counter numbers with rolling effect
+    const heroCounters = document.querySelectorAll('.hero-stats .counter');
+    const counterObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                counterObs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    heroCounters.forEach(c => counterObs.observe(c));
+}
+
+/* =============================================
+   Smooth Number Counting for Stats
+   ============================================= */
+function initSmoothCounters() {
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        obs.observe(counter);
+    });
+}
+
+/* =============================================
+   Parallax Scroll Effect for Background Images
+   ============================================= */
+(function initParallaxScroll() {
+    window.addEventListener('scroll', throttle(function() {
+        const scrolled = window.scrollY;
+        const parallaxSections = document.querySelectorAll('.parallax-section, .cta-section');
+
+        parallaxSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                const speed = 0.3;
+                const yPos = -(rect.top * speed);
+                section.style.backgroundPositionY = yPos + 'px';
+            }
+        });
+    }, 16));
+})();
+
+/* =============================================
+   Magnetic Hover on Buttons
+   ============================================= */
+(function initMagneticButtons() {
+    if (window.innerWidth <= 768) return;
+
+    const buttons = document.querySelectorAll('.btn-primary, .btn-accent, .hero-play-btn');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('mousemove', function(e) {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+        });
+
+        btn.addEventListener('mouseleave', function() {
+            btn.style.transform = '';
+        });
+    });
+})();

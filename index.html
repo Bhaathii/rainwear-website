@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Rainwear (Pvt) Ltd - Sri Lanka's leading waterproof garment manufacturer since 1989. Queens Award winning innovation in bonding technology. ISO certified quality.">
-    <meta name="keywords" content="Rainwear, waterproof garments, Sri Lanka, apparel manufacturing, bonding technology, outdoor clothing, tactical wear">
+    <meta name="description" content="Rainwear (Pvt) Ltd - Technical Garment Manufacturing. ISO 9001:2015 certified, strong design & development capabilities, bulk manufacturing, modern machines, ethical & sustainable manufacturing.">
+    <meta name="keywords" content="Rainwear, technical garment manufacturing, waterproof garments, Sri Lanka, apparel manufacturing, bonding technology, outdoor clothing, tactical wear, ISO 9001:2015, ethical manufacturing">
     <meta name="author" content="Rainwear (Pvt) Ltd">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Rainwear (Pvt) Ltd - Leading Waterproof Garment Manufacturer">
-    <meta property="og:description" content="Sri Lanka's No.1 waterproof garment manufacturing company. Queens Award winning technology.">
+    <meta property="og:title" content="Rainwear (Pvt) Ltd - Technical Garment Manufacturing">
+    <meta property="og:description" content="ISO 9001:2015 certified technical garment manufacturer. Strong design, development & bulk capabilities with modern machines and sustainable practices.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://rainwear.lk">
     
-    <title>Rainwear (Pvt) Ltd | Leading Waterproof Garment Manufacturer in Sri Lanka</title>
+    <title>Rainwear (Pvt) Ltd | Technical Garment Manufacturing - ISO Certified</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
@@ -40,11 +40,8 @@
     <header class="header">
         <div class="container">
             <nav class="nav">
-                <a href="index.html" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-tint"></i>
-                    </div>
-                    <span class="logo-text">Rain<span>wear</span></span>
+                <a href="index.html" class="logo" aria-label="Rainwear - Technical Garment Manufacturing">
+                    <span class="logo-brand">RA<span class="logo-i-wrap"><i class="fa-solid fa-droplet logo-drop-icon"></i>I</span>NWEAR</span>
                 </a>
                 
                 <ul class="nav-menu">
@@ -73,19 +70,51 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
+        <!-- Video Background -->
+        <div class="hero-video-wrap">
+            <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920">
+                <source src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
+
+        <!-- Animated Particles -->
+        <canvas id="heroParticles" class="hero-particles"></canvas>
+
+        <!-- Animated Floating Icons -->
+        <div class="hero-float-icons">
+            <i class="fas fa-tshirt float-icon" style="top:15%;left:8%;animation-delay:0s;"></i>
+            <i class="fas fa-cut float-icon" style="top:60%;left:5%;animation-delay:1.5s;"></i>
+            <i class="fas fa-tape float-icon" style="top:25%;right:10%;animation-delay:0.8s;"></i>
+            <i class="fas fa-cogs float-icon" style="top:70%;right:8%;animation-delay:2.2s;"></i>
+            <i class="fas fa-ruler float-icon" style="top:45%;right:3%;animation-delay:3s;"></i>
+            <i class="fas fa-shield-alt float-icon" style="top:80%;left:15%;animation-delay:1s;"></i>
+        </div>
+
         <div class="container">
             <div class="hero-content">
-                <span class="hero-badge">
-                    <i class="fas fa-award"></i> Queen's Award Winner 2006 & 2008
+                <span class="hero-badge hero-animate" data-animate="fadeInDown" style="animation-delay:0.3s;">
+                    <i class="fas fa-certificate"></i> ISO 9001:2015 Certified Company
                 </span>
-                <h1>Leading <span>Waterproof</span> Garment Manufacturer in Sri Lanka</h1>
-                <p>Since 1989, Rainwear (Pvt) Ltd has been at the forefront of innovative waterproof garment manufacturing. As the operational arm of Ardmel Group UK, we bring award-winning bonding technology to create superior outdoor and protective apparel.</p>
-                <div class="hero-buttons">
-                    <a href="about.html" class="btn btn-primary">Discover Our Story</a>
+                <h1 class="hero-animate" data-animate="fadeInUp" style="animation-delay:0.5s;"><span>Technical</span> Garment Manufacturing</h1>
+                <p class="hero-animate" data-animate="fadeInUp" style="animation-delay:0.7s;">Rainwear (Pvt) Ltd delivers excellence in technical garment manufacturing with strong design & development capabilities, robust bulk manufacturing, and modern machinery. As an ISO 9001:2015 certified company, we combine ethical and sustainable practices with cutting-edge technology.</p>
+                <div class="hero-buttons hero-animate" data-animate="fadeInUp" style="animation-delay:0.9s;">
+                    <a href="about.html" class="btn btn-primary btn-glow">Discover Our Story</a>
                     <a href="contact.html" class="btn btn-secondary">Get In Touch</a>
+                    <a href="mailto:rainwear@rainwear.lk" class="btn btn-accent"><i class="fas fa-envelope"></i> Email Inquiry</a>
                 </div>
-                <div class="hero-stats">
+
+                <!-- Video Play Button -->
+                <div class="hero-video-btn-wrap hero-animate" data-animate="fadeIn" style="animation-delay:1.2s;">
+                    <button class="hero-play-btn" id="heroPlayBtn" aria-label="Watch our factory video">
+                        <span class="play-pulse"></span>
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <span class="play-label">Watch Our Factory</span>
+                </div>
+
+                <div class="hero-stats hero-animate" data-animate="fadeInUp" style="animation-delay:1.1s;">
                     <div class="stat-item">
                         <h3 class="counter" data-target="35" data-suffix="+">0+</h3>
                         <p>Years of Excellence</p>
@@ -95,64 +124,201 @@
                         <p>Skilled Employees</p>
                     </div>
                     <div class="stat-item">
-                        <h3 class="counter" data-target="2">0</h3>
-                        <p>Queen's Awards</p>
+                        <h3>ISO</h3>
+                        <p>9001:2015 Certified</p>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
+
+    <!-- Video Modal -->
+    <div class="video-overlay-modal" id="videoModal">
+        <div class="video-modal-backdrop"></div>
+        <div class="video-modal-container">
+            <button class="video-modal-close-btn" id="videoModalClose" aria-label="Close video">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="video-modal-player">
+                <iframe id="videoIframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
 
     <!-- Features Section -->
     <section class="section bg-light" id="features">
         <div class="container">
             <div class="section-title">
+                <span class="section-badge"><i class="fas fa-star"></i> Our Strengths</span>
                 <h2>Why Choose Rainwear?</h2>
-                <p>We combine innovation, quality, and sustainability to deliver exceptional waterproof apparel solutions</p>
+                <p>We combine strong capabilities, modern technology, and certified quality to deliver exceptional technical garment solutions</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card" data-tilt>
                     <div class="feature-icon">
-                        <i class="fas fa-medal"></i>
+                        <i class="fas fa-drafting-compass"></i>
                     </div>
-                    <h4>Award-Winning Technology</h4>
-                    <p>Our patented bonding technology won the Queen's Award for Innovation in 2006 and Enterprise in 2008.</p>
+                    <h4>Strong Design & Development</h4>
+                    <p>Flagship seam sealing (Hot Air & Hot Wedge), ultrasonic bonding & cutting, seamless bonding with adhesive films, and computerized strip & laser cutting — from concept to finished product.</p>
+                    <a href="capabilities.html#design" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-tilt>
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-industry"></i>
                     </div>
-                    <h4>ISO Certified Quality</h4>
-                    <p>ISO 9001:2015 and ISO 14001:2015 certified manufacturing processes ensuring international standards.</p>
+                    <h4>Strong Bulk Capabilities</h4>
+                    <p>Robust bulk manufacturing capacity with 500+ skilled employees, streamlined production lines, and efficient supply chain management.</p>
+                    <a href="capabilities.html#bulk" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-tilt>
                     <div class="feature-icon">
-                        <i class="fas fa-leaf"></i>
+                        <i class="fas fa-microchip"></i>
                     </div>
-                    <h4>Sustainable Practices</h4>
-                    <p>Committed to environmentally sound manufacturing with continuous improvements in environmental performance.</p>
+                    <h4>Modern Machines</h4>
+                    <p>Digital-controlled seam sealers, ultrasonic welders, flatbed & vacuum heat presses, laser cutters, and computerized strip cutting — all precision-calibrated for technical garments.</p>
+                    <a href="capabilities.html#technology" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card" data-tilt>
                     <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
+                        <i class="fas fa-certificate"></i>
                     </div>
-                    <h4>Advanced Capabilities</h4>
-                    <p>State-of-the-art sewing, welding, and bonding technologies including seam sealing capabilities.</p>
+                    <h4>ISO 9001:2015 Certified</h4>
+                    <p>Internationally certified quality management system ensuring consistent, high-standard manufacturing processes and products.</p>
+                    <a href="compliance.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h4>Expert Workforce</h4>
-                    <p>500+ skilled employees dedicated to crafting high-quality waterproof garments with precision.</p>
-                </div>
-                <div class="feature-card">
+                <div class="feature-card" data-tilt>
                     <div class="feature-icon">
                         <i class="fas fa-handshake"></i>
                     </div>
                     <h4>Ethical Manufacturing</h4>
-                    <p>Member of JAAF's "Garments Without Guilt" charter - free of child labor, forced labor, and sweatshop practices.</p>
+                    <p>Committed to ethical business practices — free of child labor, forced labor, and sweatshop practices. JAAF "Garments Without Guilt" member.</p>
+                    <a href="compliance.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
                 </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h4>Sustainable Manufacturing</h4>
+                    <p>Environmentally responsible manufacturing with continuous improvements in sustainability, waste reduction, and energy conservation.</p>
+                    <a href="compliance.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h4>Modern Software</h4>
+                    <p>Up-to-date CAD/CAM systems and modern software solutions for pattern making, production planning, and quality management.</p>
+                    <a href="capabilities.html" class="feature-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h4>Easy Inquiries via Email</h4>
+                    <p>Get in touch easily via email for quotes, partnerships, and product inquiries. Quick response within 24-48 business hours. <a href="mailto:rainwear@rainwear.lk" style="color: var(--secondary-color); font-weight: 600;">rainwear@rainwear.lk</a></p>
+                    <a href="contact.html" class="feature-link">Contact Us <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Technologies Section -->
+    <section class="section" id="core-tech">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-badge"><i class="fas fa-cogs"></i> Innovation</span>
+                <h2>Our Core Technologies</h2>
+                <p>Flagship technologies driving our design & development capabilities</p>
+            </div>
+            <div class="tech-detail-grid">
+                <div class="tech-detail-card">
+                    <div class="tech-detail-header">
+                        <div class="tech-detail-number">01</div>
+                        <div>
+                            <h4>Seam Sealing (Hot Air & Hot Wedge)</h4>
+                            <span class="tech-badge">Flagship Technology</span>
+                        </div>
+                    </div>
+                    <div class="tech-detail-body">
+                        <p>Our flagship technology — applying specialized tape over stitched seams with precision-controlled hot air or heated wedge to create completely waterproof seals.</p>
+                        <div class="tech-detail-features">
+                            <div class="tech-feature">
+                                <i class="fas fa-microchip"></i>
+                                <div>
+                                    <strong>Digital Control Systems</strong>
+                                    <p>Minute adjustments in temperature and speed — critical for heat-sensitive fabrics like ultra-lightweight nylons or heavy-duty canvases.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-detail-card">
+                    <div class="tech-detail-header">
+                        <div class="tech-detail-number">02</div>
+                        <div>
+                            <h4>Ultrasonic Bonding & Cutting</h4>
+                            <span class="tech-badge">Advanced Technology</span>
+                        </div>
+                    </div>
+                    <div class="tech-detail-body">
+                        <p>High-frequency acoustic vibrations create molecular-level bonds between synthetic fabrics — no glue or thread needed. Simultaneous cutting and edge sealing prevents fraying.</p>
+                        <div class="tech-detail-features">
+                            <div class="tech-feature">
+                                <i class="fas fa-link"></i>
+                                <div>
+                                    <strong>Molecular-Level Welding</strong>
+                                    <p>Vibrations create friction that melts synthetic fabrics together for invisible, durable bonds without adhesives.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-detail-card">
+                    <div class="tech-detail-header">
+                        <div class="tech-detail-number">03</div>
+                        <div>
+                            <h4>Seamless Bonding (Adhesive Films)</h4>
+                            <span class="tech-badge">Premium Technology</span>
+                        </div>
+                    </div>
+                    <div class="tech-detail-body">
+                        <p>Thermal adhesive film technology for high-end sportswear and tech-wear — flatbed and vacuum presses ensure strike-through-free, flexible, durable bonds.</p>
+                        <div class="tech-detail-features">
+                            <div class="tech-feature">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                                <div>
+                                    <strong>Precision Hot Melt Pressing</strong>
+                                    <p>Even pressure and temperature distribution prevents glue seep-through for a clean, professional finish.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-detail-card">
+                    <div class="tech-detail-header">
+                        <div class="tech-detail-number">04</div>
+                        <div>
+                            <h4>Computerized Strip & Laser Cutting</h4>
+                            <span class="tech-badge">Precision Technology</span>
+                        </div>
+                    </div>
+                    <div class="tech-detail-body">
+                        <p>Automated cutting technologies ensuring exact dimensions before the joining process — cold/hot strip cutting and laser cutting with cauterized edges.</p>
+                        <div class="tech-detail-features">
+                            <div class="tech-feature">
+                                <i class="fas fa-crosshairs"></i>
+                                <div>
+                                    <strong>Laser & Programmed Cutting</strong>
+                                    <p>Intricate patterns with sealed edges — vital for automotive filters and technical apparel construction.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="capabilities.html#design" class="btn btn-primary">Explore All Capabilities</a>
             </div>
         </div>
     </section>
@@ -161,16 +327,19 @@
     <section class="section">
         <div class="container">
             <div class="about-grid">
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600" alt="Rainwear Factory Operations">
+                <div class="about-image reveal-left">
+                    <img src="https://images.unsplash.com/photo-1565873298053-93f849d8e3ec?w=600&q=80" alt="Rainwear Factory Operations">
+                    <div class="about-image-overlay">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Manufacturing Technology" class="about-float-img">
+                    </div>
                     <div class="about-image-badge">
                         <h3>35+</h3>
                         <p>Years of Excellence</p>
                     </div>
                 </div>
-                <div class="about-content">
-                    <h2>Sri Lanka's No.1 Waterproof Garment Manufacturer</h2>
-                    <p>Established in 1989 by Mr. Rube Fernando, Rainwear (Pvt) Ltd has grown to become the leading waterproof garment manufacturer in Sri Lanka. As the operational arm of Ardmel Group UK, we hold the patent rights for the world's first bonding technology.</p>
+                <div class="about-content reveal-right">
+                    <h2>Technical Garment Manufacturing Excellence</h2>
+                    <p>Established in 1989, Rainwear (Pvt) Ltd has grown to become a leading technical garment manufacturer. With strong design & development capabilities, robust bulk manufacturing, modern machines, and ISO 9001:2015 certification, we deliver excellence in every garment.</p>
                     <ul class="about-list">
                         <li>
                             <i class="fas fa-check-circle"></i>
@@ -199,13 +368,13 @@
     <section class="section bg-light">
         <div class="container">
             <div class="section-title">
+                <span class="section-badge"><i class="fas fa-tshirt"></i> Product Range</span>
                 <h2>Our Product Categories</h2>
                 <p>Innovative waterproof and protective apparel for diverse applications</p>
             </div>
             <div class="products-grid">
                 <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-cloud-rain"></i>
+                    <div class="product-image" style="background-image: url('images/waterproof-jackets.jpg');">
                         <span class="product-badge">Popular</span>
                     </div>
                     <div class="product-content">
@@ -215,8 +384,7 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-hiking"></i>
+                    <div class="product-image" style="background-image: url('images/outdoor-clothing.jpg');">
                     </div>
                     <div class="product-content">
                         <h4>Outdoor Clothing</h4>
@@ -225,8 +393,7 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-shield-virus"></i>
+                    <div class="product-image" style="background-image: url('images/tactical-wear.jpg');">
                         <span class="product-badge">New</span>
                     </div>
                     <div class="product-content">
@@ -236,8 +403,7 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-temperature-low"></i>
+                    <div class="product-image" style="background-image: url('images/extreme-weather.jpg');">
                     </div>
                     <div class="product-content">
                         <h4>Extreme Weather Gear</h4>
@@ -246,8 +412,7 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-bolt"></i>
+                    <div class="product-image" style="background-image: url('images/heated-apparel.jpg');">
                     </div>
                     <div class="product-content">
                         <h4>Heated Garments</h4>
@@ -256,8 +421,7 @@
                     </div>
                 </div>
                 <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-suitcase-rolling"></i>
+                    <div class="product-image" style="background-image: url('images/travel-leisure.jpg');">
                     </div>
                     <div class="product-content">
                         <h4>Travel & Leisure Wear</h4>
@@ -270,34 +434,36 @@
     </section>
 
     <!-- Apparel Footprint Section -->
-    <section class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Global Footprint</h2>
-                <p>Manufacturing excellence that reaches customers worldwide</p>
+    <section class="section parallax-section" style="background-image: url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1920&q=80');">
+        <div class="parallax-overlay"></div>
+        <div class="container" style="position: relative; z-index: 2;">
+            <div class="section-title" style="margin-bottom: 50px;">
+                <span class="section-badge section-badge-light"><i class="fas fa-globe"></i> Worldwide</span>
+                <h2 style="color: #fff;">Our Global Footprint</h2>
+                <p style="color: rgba(255,255,255,0.85);">Manufacturing excellence that reaches customers worldwide</p>
             </div>
             <div class="footprint-stats">
-                <div class="footprint-stat">
+                <div class="footprint-stat glass-card">
                     <i class="fas fa-globe-asia"></i>
                     <h3 class="counter" data-target="50" data-suffix="+">0+</h3>
                     <p>Countries Served</p>
                 </div>
-                <div class="footprint-stat">
+                <div class="footprint-stat glass-card">
                     <i class="fas fa-industry"></i>
                     <h3>Block A</h3>
                     <p>Biyagama EPZ Facility</p>
                 </div>
-                <div class="footprint-stat">
+                <div class="footprint-stat glass-card">
                     <i class="fas fa-users-cog"></i>
                     <h3 class="counter" data-target="500" data-suffix="+">0+</h3>
                     <p>Skilled Workforce</p>
                 </div>
-                <div class="footprint-stat">
+                <div class="footprint-stat glass-card">
                     <i class="fas fa-award"></i>
                     <h3 class="counter" data-target="2">0</h3>
                     <p>Royal Awards</p>
                 </div>
-                <div class="footprint-stat">
+                <div class="footprint-stat glass-card">
                     <i class="fas fa-certificate"></i>
                     <h3 class="counter" data-target="3" data-suffix="+">0+</h3>
                     <p>ISO Certifications</p>
@@ -310,7 +476,8 @@
     <section class="section bg-light">
         <div class="container">
             <div class="sustainability-content">
-                <div class="sustainability-text">
+                <div class="sustainability-text reveal-left">
+                    <span class="section-badge"><i class="fas fa-seedling"></i> Eco-Friendly</span>
                     <h3>Committed to Sustainability</h3>
                     <p>Rainwear is committed to meeting the needs of customers in an environmentally sound and sustainable manner. We continuously improve our environmental performance across all activities.</p>
                     <ul class="sustainability-list">
@@ -337,20 +504,59 @@
                         </li>
                     </ul>
                 </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600" alt="Sustainability at Rainwear">
+                <div class="about-image reveal-right">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=80" alt="Sustainability at Rainwear">
+                    <div class="about-image-overlay">
+                        <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&q=80" alt="Green Manufacturing" class="about-float-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Trust Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <span class="section-badge"><i class="fas fa-handshake"></i> Trusted Partners</span>
+                <h2>Our Certifications & Memberships</h2>
+                <p>Recognized by international standards and industry bodies</p>
+            </div>
+            <div class="trust-marquee">
+                <div class="trust-track">
+                    <div class="trust-item"><i class="fas fa-certificate"></i><span>ISO 9001:2015</span></div>
+                    <div class="trust-item"><i class="fas fa-certificate"></i><span>ISO 14001:2015</span></div>
+                    <div class="trust-item"><i class="fas fa-award"></i><span>Queens Award</span></div>
+                    <div class="trust-item"><i class="fas fa-shield-alt"></i><span>Garments Without Guilt</span></div>
+                    <div class="trust-item"><i class="fas fa-building"></i><span>BOI Registered</span></div>
+                    <div class="trust-item"><i class="fas fa-users"></i><span>JAAF Member</span></div>
+                    <div class="trust-item"><i class="fas fa-globe"></i><span>Ardmel Group UK</span></div>
+                    <div class="trust-item"><i class="fas fa-medal"></i><span>Enterprise Award</span></div>
+                    <!-- Duplicate for seamless loop -->
+                    <div class="trust-item"><i class="fas fa-certificate"></i><span>ISO 9001:2015</span></div>
+                    <div class="trust-item"><i class="fas fa-certificate"></i><span>ISO 14001:2015</span></div>
+                    <div class="trust-item"><i class="fas fa-award"></i><span>Queens Award</span></div>
+                    <div class="trust-item"><i class="fas fa-shield-alt"></i><span>Garments Without Guilt</span></div>
+                    <div class="trust-item"><i class="fas fa-building"></i><span>BOI Registered</span></div>
+                    <div class="trust-item"><i class="fas fa-users"></i><span>JAAF Member</span></div>
+                    <div class="trust-item"><i class="fas fa-globe"></i><span>Ardmel Group UK</span></div>
+                    <div class="trust-item"><i class="fas fa-medal"></i><span>Enterprise Award</span></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
+    <section class="cta-section" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80');">
+        <div class="cta-overlay"></div>
+        <div class="container" style="position: relative; z-index: 2;">
             <div class="cta-content">
                 <h2>Ready to Partner With Us?</h2>
-                <p>Let's discuss how Rainwear can provide innovative waterproof apparel solutions for your brand.</p>
-                <a href="contact.html" class="btn btn-secondary">Contact Us Today</a>
+                <p>Let's discuss how Rainwear can provide innovative technical garment manufacturing solutions for your brand.</p>
+                <div class="hero-buttons" style="justify-content: center;">
+                    <a href="contact.html" class="btn btn-secondary">Contact Us Today</a>
+                    <a href="mailto:rainwear@rainwear.lk" class="btn btn-accent"><i class="fas fa-envelope"></i> Email Inquiry</a>
+                </div>
             </div>
         </div>
     </section>
@@ -360,13 +566,10 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="index.html" class="logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-tint"></i>
-                        </div>
-                        <span class="logo-text">Rain<span>wear</span></span>
+                    <a href="index.html" class="logo" aria-label="Rainwear - Technical Garment Manufacturing">
+                        <span class="logo-brand">RA<span class="logo-i-wrap"><i class="fa-solid fa-droplet logo-drop-icon"></i>I</span>NWEAR</span>
                     </a>
-                    <p>Sri Lanka's leading waterproof garment manufacturer since 1989. Award-winning innovation in bonding technology.</p>
+                    <p>Technical garment manufacturing since 1989. ISO 9001:2015 certified, ethical & sustainable manufacturing with modern technology.</p>
                     <div class="footer-social">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
