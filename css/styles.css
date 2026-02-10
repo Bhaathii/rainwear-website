@@ -1148,6 +1148,260 @@ ul {
 }
 
 /* =============================================
+   PROCESS VIDEO SHOWCASE
+   ============================================= */
+.process-video-showcase {
+    margin-bottom: 50px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+}
+
+.process-video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 21/9;
+    overflow: hidden;
+}
+
+.process-video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.process-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(10, 30, 50, 0.7) 0%, transparent 50%, rgba(10, 30, 50, 0.3) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    pointer-events: none;
+}
+
+.process-video-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.process-video-label i {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* =============================================
+   PROCESS FLOW STEPS
+   ============================================= */
+.process-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+/* Vertical connector line */
+.process-flow::before {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 40px;
+    bottom: 40px;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color), var(--accent-color));
+    border-radius: 3px;
+    z-index: 0;
+}
+
+.process-step {
+    display: grid;
+    grid-template-columns: 60px 280px 1fr;
+    gap: 30px;
+    align-items: center;
+    padding: 30px 0;
+    position: relative;
+    z-index: 1;
+}
+
+.process-step:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Step number circle */
+.process-step-number {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(26, 58, 92, 0.3);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.process-step:hover .process-step-number {
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+/* Step image */
+.process-step-image {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow-md);
+}
+
+.process-step-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.process-step:hover .process-step-image img {
+    transform: scale(1.08);
+}
+
+.process-step-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.process-step-icon i {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+}
+
+/* Step content */
+.process-step-content h4 {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.process-step-content p {
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.process-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.process-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--text-dark);
+    background: var(--bg-light);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.process-highlights li i {
+    font-size: 0.7rem;
+    color: var(--secondary-color);
+}
+
+/* =============================================
+   FACTORY GALLERY
+   ============================================= */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.gallery-item {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+.gallery-item.gallery-wide {
+    grid-column: span 2;
+    aspect-ratio: 16/9;
+}
+
+.gallery-item img,
+.gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video {
+    transform: scale(1.06);
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-caption i {
+    color: var(--accent-color);
+    margin-right: 6px;
+}
+
+.gallery-item:hover .gallery-caption {
+    transform: translateY(0);
+}
+
+/* =============================================
    TECH DETAIL CARDS (Design & Development)
    ============================================= */
 .tech-detail-grid {
@@ -2087,6 +2341,19 @@ ul {
         grid-template-columns: 1fr;
     }
 
+    .process-step {
+        grid-template-columns: 50px 220px 1fr;
+        gap: 20px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item.gallery-wide {
+        grid-column: span 2;
+    }
+
     .parallax-section,
     .cta-section {
         background-attachment: scroll;
@@ -2315,6 +2582,47 @@ ul {
     .tech-detail-number {
         font-size: 1.5rem;
         min-width: 36px;
+    }
+
+    /* Process Flow */
+    .process-flow::before {
+        display: none;
+    }
+
+    .process-step {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 25px 0;
+    }
+
+    .process-step-number {
+        width: 44px;
+        height: 44px;
+        font-size: 0.95rem;
+    }
+
+    .process-step-image {
+        aspect-ratio: 16/9;
+    }
+
+    .process-video-wrap {
+        aspect-ratio: 16/9;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item.gallery-wide {
+        grid-column: span 1;
+    }
+
+    .gallery-item {
+        aspect-ratio: 16/9;
+    }
+
+    .gallery-caption {
+        transform: translateY(0);
     }
 
     /* Footprint */
