@@ -71,12 +71,24 @@
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
-        <!-- Video Background -->
+        <!-- Multi-Video Background Carousel -->
         <div class="hero-video-wrap">
-            <video class="hero-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920">
-                <source src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4" type="video/mp4">
+            <video class="hero-video active" autoplay muted loop playsinline poster="images/hero-poster.jpg" data-index="0">
+                <source src="https://videos.pexels.com/video-files/15459708/15459708-uhd_2560_1440_24fps.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" muted loop playsinline preload="none" data-index="1">
+                <source src="https://videos.pexels.com/video-files/7043759/7043759-uhd_2560_1440_24fps.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video" muted loop playsinline preload="none" data-index="2">
+                <source src="https://videos.pexels.com/video-files/15459710/15459710-uhd_2560_1440_24fps.mp4" type="video/mp4">
             </video>
             <div class="hero-video-overlay"></div>
+            <!-- Video Progress Indicators -->
+            <div class="hero-video-indicators">
+                <button class="video-indicator active" data-index="0"><span></span></button>
+                <button class="video-indicator" data-index="1"><span></span></button>
+                <button class="video-indicator" data-index="2"><span></span></button>
+            </div>
         </div>
 
         <!-- Animated Particles -->
@@ -141,7 +153,10 @@
                 <i class="fas fa-times"></i>
             </button>
             <div class="video-modal-player">
-                <iframe id="videoIframe" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <video id="modalVideo" controls preload="none" poster="images/hero-poster.jpg">
+                    <source src="https://videos.pexels.com/video-files/15459709/15459709-uhd_2560_1440_24fps.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </div>

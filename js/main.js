@@ -414,29 +414,27 @@ function isInViewport(element) {
 }
 
 /* =============================================
-   Hero Video Modal
+   Hero Video Modal + Video Carousel
    ============================================= */
 function initHeroVideo() {
+    // === Video Modal ===
     const playBtn   = document.getElementById('heroPlayBtn');
     const modal     = document.getElementById('videoModal');
-    const iframe    = document.getElementById('videoIframe');
+    const modalVid  = document.getElementById('modalVideo');
     const closeBtn  = document.getElementById('videoModalClose');
     const backdrop  = modal ? modal.querySelector('.video-modal-backdrop') : null;
 
-    // A factory / garment manufacturing showcase video (YouTube embed)
-    const videoSrc = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0';
-    // Replace the URL above with your own company video URL
-
-    if (playBtn && modal && iframe) {
+    if (playBtn && modal && modalVid) {
         playBtn.addEventListener('click', function() {
-            iframe.src = videoSrc;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            modalVid.play();
         });
 
         function closeModal() {
             modal.classList.remove('active');
-            iframe.src = '';
+            modalVid.pause();
+            modalVid.currentTime = 0;
             document.body.style.overflow = '';
         }
 
@@ -447,6 +445,69 @@ function initHeroVideo() {
             if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
         });
     }
+
+    // === Multi-Video Background Carousel ===
+    const heroVideos   = document.querySelectorAll('.hero-video');
+    const indicators   = document.querySelectorAll('.video-indicator');
+    if (heroVideos.length <= 1) return;
+
+    let currentIndex = 0;
+    const SLIDE_DURATION = 8000; // 8 seconds per video
+    let cycleTimer = null;
+
+    function switchToVideo(index) {
+        if (index === currentIndex) return;
+
+        // Fade out current
+        heroVideos[currentIndex].classList.remove('active');
+        indicators[currentIndex].classList.remove('active');
+
+        // Update index
+        currentIndex = index;
+
+        // Preload & play new video
+        const nextVid = heroVideos[currentIndex];
+        if (nextVid.readyState < 2) {
+            nextVid.load();
+        }
+        nextVid.play().catch(function(){});
+        nextVid.classList.add('active');
+        indicators[currentIndex].classList.add('active');
+    }
+
+    function nextVideo() {
+        const next = (currentIndex + 1) % heroVideos.length;
+        switchToVideo(next);
+    }
+
+    function startCycle() {
+        clearInterval(cycleTimer);
+        cycleTimer = setInterval(nextVideo, SLIDE_DURATION);
+    }
+
+    // Manual indicator clicks
+    indicators.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const idx = parseInt(this.dataset.index, 10);
+            switchToVideo(idx);
+            startCycle(); // Reset timer on manual switch
+        });
+    });
+
+    // Start the first video & begin cycling
+    heroVideos[0].play().catch(function(){});
+    startCycle();
+
+    // Pause cycling when tab hidden (performance)
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            clearInterval(cycleTimer);
+            heroVideos.forEach(function(v) { v.pause(); });
+        } else {
+            heroVideos[currentIndex].play().catch(function(){});
+            startCycle();
+        }
+    });
 }
 
 /* =============================================

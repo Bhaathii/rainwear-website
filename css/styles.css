@@ -400,7 +400,7 @@ ul {
     background: var(--primary-dark);
 }
 
-/* Video Background */
+/* Video Background — Multi-Video Carousel */
 .hero-video-wrap {
     position: absolute;
     inset: 0;
@@ -408,22 +408,86 @@ ul {
 }
 
 .hero-video {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.hero-video.active {
+    opacity: 1;
+    z-index: 1;
 }
 
 .hero-video-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-        135deg,
-        rgba(13, 40, 64, 0.88) 0%,
-        rgba(26, 58, 92, 0.82) 40%,
-        rgba(44, 139, 158, 0.75) 100%
+        160deg,
+        rgba(10, 30, 50, 0.90) 0%,
+        rgba(26, 58, 92, 0.80) 35%,
+        rgba(44, 139, 158, 0.68) 70%,
+        rgba(230, 126, 34, 0.35) 100%
     );
-    z-index: 1;
+    z-index: 2;
+}
+
+/* Video Progress Indicators */
+.hero-video-indicators {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 5;
+}
+
+.video-indicator {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    transition: background 0.3s;
+}
+
+.video-indicator:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.video-indicator span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--accent-color);
+    border-radius: 4px;
+    transition: width 0.3s;
+}
+
+.video-indicator.active span {
+    animation: indicatorFill 8s linear forwards;
+}
+
+@keyframes indicatorFill {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* Modal Video Player */
+.video-modal-player video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 12px;
+    background: #000;
 }
 
 /* Particle Canvas */
@@ -610,21 +674,55 @@ ul {
 /* Stats */
 .hero-stats {
     display: flex;
-    gap: 50px;
+    gap: 0;
     margin-top: 42px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(255,255,255,0.15);
+    padding: 0;
+    border: none;
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 24px 30px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s;
+}
+
+.stat-item:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.stat-item:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.stat-item:not(:last-child) {
+    border-right: none;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.12);
 }
 
 .stat-item h3 {
     color: var(--text-white);
     font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4px;
 }
 
 .stat-item p {
-    color: rgba(255,255,255,0.8);
-    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    font-weight: 500;
     margin: 0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 /* Video Modal Overlay */
@@ -674,7 +772,8 @@ ul {
     background: #000;
 }
 
-.video-modal-player iframe {
+.video-modal-player iframe,
+.video-modal-player video {
     width: 100%;
     height: 100%;
 }
@@ -2078,18 +2177,48 @@ ul {
     .hero-play-btn { width: 52px; height: 52px; font-size: 1rem; }
     .play-label { font-size: 0.85rem; }
 
+    .hero-video-indicators {
+        bottom: 20px;
+    }
+
+    .video-indicator {
+        width: 30px;
+        height: 3px;
+    }
+
     .hero-stats {
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 0;
     }
 
     .hero-stats .stat-item {
-        flex: 1 1 calc(50% - 20px);
-        min-width: 120px;
+        flex: 1 1 calc(50% - 0px);
+        min-width: 140px;
+        padding: 18px 20px;
+    }
+
+    .stat-item:first-child {
+        border-radius: 12px 0 0 0;
+    }
+
+    .stat-item:last-child {
+        border-radius: 0 0 12px 0;
+        flex: 1 1 100%;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .stat-item:nth-child(2) {
+        border-radius: 0 12px 0 0;
+        border-right: none;
+    }
+
+    .stat-item:not(:last-child) {
+        border-right: 1px solid rgba(255,255,255,0.1);
     }
 
     .stat-item h3 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .hero-buttons {
@@ -2414,9 +2543,28 @@ ul {
 
     /* Hero stats */
     .hero-stats {
-        gap: 15px;
+        flex-direction: column;
+        gap: 0;
         margin-top: 25px;
-        padding-top: 20px;
+    }
+
+    .stat-item,
+    .stat-item:first-child,
+    .stat-item:nth-child(2),
+    .stat-item:last-child {
+        border-radius: 0;
+        border-right: 1px solid rgba(255,255,255,0.1) !important;
+        border-bottom: none;
+        padding: 16px 20px;
+    }
+
+    .stat-item:first-child {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .stat-item:last-child {
+        border-radius: 0 0 12px 12px !important;
+        border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .stat-item h3 {
@@ -2424,7 +2572,7 @@ ul {
     }
 
     .stat-item p {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
     }
 
     /* Buttons */
